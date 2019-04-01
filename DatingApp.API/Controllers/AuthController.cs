@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DatingApp.API.Data;
 using DatingApp.API.Dtos;
 using DatingApp.API.Models;
@@ -21,11 +18,14 @@ namespace DatingApp.API.Controllers
         }
 
         [HttpPost("register")]
+        //public async Task<IActionResult> Register([FromBody]UserForRegisterDto userForRegisterDto)
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             //validate request
+            //if (!ModelState.IsValid)
+            //    return BadRequest(ModelState);
 
-            userForRegisterDto.UserName = userForRegisterDto.UserName.ToLower();
+            userForRegisterDto.UserName = userForRegisterDto.UserName?.ToLower();
 
             if (await _repo.UserExists(userForRegisterDto.UserName))
                 return BadRequest("Username already exists");
